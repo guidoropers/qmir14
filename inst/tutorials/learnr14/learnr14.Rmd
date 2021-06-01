@@ -15,6 +15,7 @@ library(tidyverse)
 library(broom)
 library(highlight)
 library(gradethis)
+library(screenreg)
 
 gradethis::gradethis_setup()
 data(df_learnr14_eu_accession)
@@ -23,16 +24,16 @@ data(df_learnr14_eu_accession)
 
 ## Introduction
 
-This learnr tutorial revolves around **how accession to the European Union (EU) affects citizens' anti-authoritarian attitudes**. Before you'll begin to work with the data, you'll answer some questions to revise what you have learned this week.
+This learnr tutorial revolves around **how accession to the European Union (EU) affects citizens' anti-authoritarian attitudes**. Before you begin to work with the data, you'll have to answer some questions to revise what you have learned this week.
 
 
 ## Questions
 
 ```{r q1, echo = FALSE}
-question("What is a problem for causal inference with observational data?",
-  answer("The observed difference in outcomes might be caused by confounders instead of the treatment.", correct = T),
-  answer("The treatment does not work because of confounders.", 
-         message = "Think about the role of confounders in analyses of observational data. The treatment may work, but we do not know what influence the confounders have had. Have a look at the lecture material again."),
+question("Why is it so difficult to make causal statements with observational data?",
+  answer("The observed difference in outcomes might be caused by changes in unobserved confounders instead of the treatment.", correct = T),
+  answer("Treatments do not have an effect because of unobserved confounders.", 
+         message = "Think about the role of confounders in analyses of observational data. The treatment may work, but we do not know what influence the confounders have had which biases our estimate of the treatment effect. Have a look at the lecture material again."),
   answer("Observational data does not tell us which unit is from the treatment and the control group.", 
          message = "Whether a unit belongs to the treatment or the control group depends on the value it takes for the main independent variable, the treatment. Have a look at the lecture material again."),
   random_answer_order = TRUE,
@@ -43,11 +44,11 @@ question("What is a problem for causal inference with observational data?",
 ###
 
 ```{r q2, echo = FALSE}
-question("What is the identification strategy for difference-in-differences designs?",
-  answer("The treatment group's change over time in absence of the treatment is equal to the control group's change over time.", 
+question("What is the main identifying assumption of difference-in-differences designs?",
+  answer("The change in the outcome variable in the treatment group in absence of treatment is equal to the change in the control group over time.", 
          correct = T),
   answer("The outcome for the treatment group in absence of the treatment is identical to the outcome of the control group.", 
-         message = "Not quite. While we use the outcome of the control group when calculating the difference-in-differences estimate, we do not assume that the treatment group's outcome is identical to the control group's outcome. Have a look at the lecture material again."),
+         message = "Not quite. While we use the outcome of the control group when calculating the difference-in-differences estimate, we do not assume that the treatment group's outcome is identical to the control group's outcome -- only the relative change is assumed to be similar. Have a look at the lecture material again."),
   answer("The average causal effect is the difference in the treatment group's outcome before and after the treatment.", 
          message = "In a before-and-after design, we calculate the different in the treatment group's outcome before and after the treatment. However, this does not necessarily allow us to interpret the difference as causal as there might be time-varying confounders. Have a look at the lecture material again."),
   random_answer_order = TRUE,
@@ -78,7 +79,7 @@ Use the code chunk below, to explore the data set.
 
 ## Exercises
 
-As you'll explore changes in anti-authoritarian attitudes, start by calculating the average degree of anti-authoritarianism (`cntrymean_antiauth`) among EU members and non-EU members (`EU`) in the 2008-2010 time period (`wave`). Please round to the second digit after the decimal.
+As you'll explore changes in anti-authoritarian attitudes in the `eu_accession` data, start by calculating the average degree of anti-authoritarianism (`cntrymean_antiauth`) among EU members and non-EU members (`EU`) in the 2008-2010 time period (`wave`). Please round to the second digit after the decimal.
 
 ```{r exercise1-sol, eval=FALSE, include=FALSE}
 eu_accession %>% filter(wave == "2008-2010" & EU == 1) %>% summarise(mean = round(mean(cntrymean_antiauth), 2))
@@ -116,7 +117,7 @@ question_text("And what about the average degree of anti-authoritarianism among 
 
 ###
 
-In the next few tasks, you'll calculate the causal effect of EU membership on anti-authoritarian attitudes of citizens using a difference-in-differences design. In particular, you will calculate the causal effect of EU accession on anti-authoritarian values for Romania (= *treatment unit*) compared to Albania (= *control unit*). Based on the parallel trends assumption, you can assume that anti-authoritarian attitudes would have developed similarly in both countries in the absence of Romania's EU accession.
+In the next few tasks, you'll calculate the causal effect of EU membership on anti-authoritarian attitudes of citizens using a difference-in-differences design. In particular, you will calculate the causal effect of EU accession on anti-authoritarian values for Romania (= *treatment unit*) compared to Albania (= *control unit*). Based on the parallel trends assumption, you assume that anti-authoritarian attitudes would have developed similarly in both countries in the absence of Romania's EU accession to interpret the estimate as causal.
 
 Calculate the change in anti-authoritarian values for Romania between 2008-2010 and 1999-2004. Round to two digits after the decimal. 
 
@@ -263,7 +264,7 @@ question("Which countries form the control group?",
 ```
 
 ```{r q11, echo=FALSE}
-question_text("The average treatment effect of EU accession based on the regression model is...",
+question_text("The average treatment effect of EU accession  based on the regression model is... (rounded to the second digit after the decimal)",
   answer("-8.23", correct = T),
   allow_retry = TRUE,
   incorrect = "Have you specified the data and the model correctly? Have you rounded to two digits after the decimal?"
@@ -278,5 +279,5 @@ learnrhash::encoder_logic(strip_output = TRUE)
 ```
 
 ```{r encode, echo=FALSE}
-learnrhash::encoder_ui(default_ui(url =""))
+learnrhash::encoder_ui(default_ui(url ="https://ilias.uni-mannheim.de/goto.php?target=svy_1149392&client_id=ILIAS"))
 ```
