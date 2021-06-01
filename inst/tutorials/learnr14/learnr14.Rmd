@@ -15,7 +15,7 @@ library(tidyverse)
 library(broom)
 library(highlight)
 library(gradethis)
-library(screenreg)
+library(texreg)
 
 gradethis::gradethis_setup()
 data(df_learnr14_eu_accession)
