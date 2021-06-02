@@ -24,7 +24,7 @@ data(df_learnr14_eu_accession)
 
 ## Introduction
 
-This learnr tutorial revolves around **how accession to the European Union (EU) affects citizens' anti-authoritarian attitudes**. Before you begin to work with the data, you'll have to answer some questions to revise what you have learned this week.
+This learnr tutorial revolves around **how accession to the European Union (EU) affects citizens' anti-authoritarian attitudes**. Before you begin to work with the data, you will have to answer some questions to revise what you have learned this week.
 
 
 ## Questions
@@ -79,7 +79,7 @@ Use the code chunk below, to explore the data set.
 
 ## Exercises
 
-As you'll explore changes in anti-authoritarian attitudes in the `eu_accession` data, start by calculating the average degree of anti-authoritarianism (`cntrymean_antiauth`) among EU members and non-EU members (`EU`) in the 2008-2010 time period (`wave`). Please round to the second digit after the decimal.
+As you will explore changes in anti-authoritarian attitudes in the `eu_accession` data, start by calculating the average degree of anti-authoritarianism (`cntrymean_antiauth`) among EU members and non-EU members (`EU`) in the 2008-2010 time period (`wave`). Please round to the second digit after the decimal.
 
 ```{r exercise1-sol, eval=FALSE, include=FALSE}
 eu_accession %>% filter(wave == "2008-2010" & EU == 1) %>% summarise(mean = round(mean(cntrymean_antiauth), 2))
@@ -117,7 +117,7 @@ question_text("And what about the average degree of anti-authoritarianism among 
 
 ###
 
-In the next few tasks, you'll calculate the causal effect of EU membership on anti-authoritarian attitudes of citizens using a difference-in-differences design. In particular, you will calculate the causal effect of EU accession on anti-authoritarian values for Romania (= *treatment unit*) compared to Albania (= *control unit*). Based on the parallel trends assumption, you assume that anti-authoritarian attitudes would have developed similarly in both countries in the absence of Romania's EU accession to interpret the estimate as causal.
+In the next few tasks, you will calculate the causal effect of EU membership on anti-authoritarian attitudes of citizens using a difference-in-differences design. In particular, you will calculate the causal effect of EU accession on anti-authoritarian values for Romania (= *treatment unit*) compared to Albania (= *control unit*). Based on the parallel trends assumption, you assume that anti-authoritarian attitudes would have developed similarly in both countries in the absence of Romania's EU accession to interpret the estimate as causal.
 
 Calculate the change in anti-authoritarian values for Romania between 2008-2010 and 1999-2004. Round to two digits after the decimal. 
 
@@ -234,7 +234,7 @@ question("Does this mean that anti-authoritarian attitudes in Romania have incre
 
 ###
 
-In a final step, use a difference-in-differences regression model to analyze the effect of EU accession on anti-authoritarianism. The subset of the data that you'll use as well as the treatment time and treatment group are already specified in the code chunk below. All you need to do is to add the regression model.
+In a final step, use a difference-in-differences regression model to analyze the effect of EU accession on anti-authoritarianism. The subset of the data that you will use as well as the treatment time and treatment group are already specified in the code chunk below. All you need to do is to add the regression model.
 
 ```{r exercise5-sol, eval=FALSE, include=FALSE}
 lm(cntrymean_antiauth ~ treatment_time*treatment_group, data = did_data) %>%
